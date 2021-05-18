@@ -5,7 +5,7 @@ from datetime import date,timedelta
 from time import sleep
 
 
-TOKEN = ""
+TOKEN = "" #Bot Token
 
 TIME_GAP=10*60 #10 Minutes
 
@@ -14,7 +14,7 @@ data={'nicobar': 3, 'north and middle andaman': 1, 'south andaman': 2, 'anantapu
 headers={"Accept": "application/json","Accept-Language": "hi_IN","User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36"}
 
 
-def check_city(update,context):
+def district(update,context):
 	flag=0
 	if(len(context.args)==1):
 		da=str(context.args[0]).lower()
@@ -43,7 +43,7 @@ def check_city(update,context):
 	if flag==0:
 		update.message.reply_text("[-]No Slots found check ater!")
 
-def check_pin(update,context):
+def pincode(update,context):
 	flag=0
 	if(len(context.args)==1):
 		pin=str(context.args[0])
@@ -159,9 +159,9 @@ def main():
     dp = updater.dispatcher
 
     dp.add_handler(CommandHandler("district" , district,run_async=True))
-    dp.add_handler(CommandHandler("check_pin" , check_pin,run_async=True))
-    dp.add_handler(CommandHandler("bot_city" , bot_city,run_async=True))
-    dp.add_handler(CommandHandler("bot_pin" , bot_pin,run_async=True))
+    dp.add_handler(CommandHandler("pincode" , pincode,run_async=True))
+    dp.add_handler(CommandHandler("botdistrict" , botdistrict,run_async=True))
+    dp.add_handler(CommandHandler("botpincode" , botpincode,run_async=True))
     dp.add_handler(CommandHandler("help" , help,run_async=True))
     dp.add_handler(CommandHandler("start" , help,run_async=True))
     updater.start_polling()
