@@ -93,7 +93,7 @@ def botpincode(update,context):
 				update.message.reply_text("[-]API Error!\n")
 				return
 			if response.status_code==200:
-				print(response.text)
+				#print(response.text)
 				json_data=json.loads(response.text)
 				if len(json_data["sessions"]):
 					for session in json_data["sessions"]:
