@@ -100,7 +100,7 @@ def botpincode(update,context):
 						if session["available_capacity"] > 0 and session["min_age_limit"] <= age:
 							msg = f"{session['vaccine']} available for {session['available_capacity']}  people on {session['date']} at {session['name']},{session['address']}\n"
 							update.message.reply_text(msg)
-							sleep(TIME_GAP)
+		sleep(TIME_GAP)
 			
 
 def botdistrict(update,context):
@@ -129,7 +129,7 @@ def botdistrict(update,context):
 						if session["available_capacity"] > 0 and session["min_age_limit"] <= age:
 							msg = f"{session['vaccine']} available for {session['available_capacity']}  people on {session['date']} at {session['name']},{session['address']}\n"
 							update.message.reply_text(msg)
-							sleep(TIME_GAP)
+		sleep(TIME_GAP)
 
 
 def help(update , context):
