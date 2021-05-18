@@ -1,9 +1,11 @@
 from telegram.ext import Updater, CommandHandler
 from telegram.ext.dispatcher import run_async
 import json,requests
-from datetime import date,timedelta
+from datetime import datetime,timedelta
 from time import sleep
+import pytz  
 
+IST = pytz.timezone('Asia/Kolkata')   
 
 TOKEN = "" #Bot Token
 
@@ -21,15 +23,15 @@ def district(update,context):
 	else:
 		update.message.reply_text("[-]Invalid!\nExample-/district 'Upper Subansiri'!\n")
 		return
-	today=date.today()
-	d3 = today.strftime("%d-%m-%y")
+	
 	for day in range(0,5):
-		d3 = (date.today() + timedelta(days = day)).strftime("%d-%m-%Y")
+		d3 = (datetime.now(IST) + timedelta(days = day)).strftime("%d-%m-%Y")
 		d4=data.get(da)
-		if(d4=="None"):
+		if(d4==None):
 			update.message.reply_text("[-]Wrong District!\n")
 			return
 		url=f"https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id={d4}&date={d3}"
+		print(url)
 		try:
 			response=requests.get(url,headers=headers)
 		except:
@@ -54,8 +56,9 @@ def pincode(update,context):
 		update.message.reply_text("[-]Please provide pin'!\n")
 		return
 	for day in range(0,5):
-		d3 = (date.today() + timedelta(days = day)).strftime("%d-%m-%Y")
+		d3 = (datetime.now(IST) + timedelta(days = day)).strftime("%d-%m-%Y")
 		url=f"https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode={pin}&date={d3}"
+		print(url)
 		try:
 			response=requests.get(url,headers=headers)
 		except:
@@ -65,13 +68,13 @@ def pincode(update,context):
 			json_data=json.loads(response.text)
 			if len(json_data["sessions"]):
 				for session in json_data["sessions"]:
-					print(session)
+					#print(session)
 					if session["available_capacity"] > 0: 
 						msg = f"{session['vaccine']} available for {session['available_capacity']} (Age-{session['min_age_limit']}+) people on {session['date']} at {session['name']},{session['address']}\n"
 						update.message.reply_text(msg)
 						flag=1
 	if flag==0:
-		update.message.reply_text("[-]No Slots found Check Later!")
+		update.message.reply_text("[-]No slots found check later!")
 
 
 
@@ -81,15 +84,15 @@ def botpincode(update,context):
 		pin=str(context.args[0])
 		age=int(context.args[1])
 	else:
-		update.message.reply_text("[-]Invalid\nExample- /botpincode 800001 18")
+		update.message.reply_text("[-]Invalid Example- /botpincode 800001 18")
 		return
 	update.message.reply_text("[+]Bot Started\n")
 	while True:
 		for day in range(0,5):
-			d3 = (date.today() + timedelta(days = day)).strftime("%d-%m-%Y")
-			#d4=data.get(da)
+			d3 = (datetime.now(IST) + timedelta(days = day)).strftime("%d-%m-%Y")
+			
 			url=f"https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode={pin}&date={d3}"
-			#print(url)
+			print(url)
 			try:
 				response=requests.get(url,headers=headers)
 			except:
@@ -116,19 +119,20 @@ def botdistrict(update,context):
 	update.message.reply_text("[+]Bot Started\n")
 	while True:
 		for day in range(0,5):
-			d3 = (date.today() + timedelta(days = day)).strftime("%d-%m-%Y")
+			d3 = (datetime.now(IST) + timedelta(days = day)).strftime("%d-%m-%Y")
 			d4=data.get(da)
-			if(d4=="None"):
+			if(d4==None):
 				update.message.reply_text("[-]Wrong District!\n")
 				return
 			url=f"https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id={d4}&date={d3}"
+			print(url)
 			try:
 				response=requests.get(url,headers=headers)
 			except:
 				update.message.reply_text("API Error!\n")
 				return
 			if response.status_code==200:
-				print(response.text)
+				#print(response.text)
 				json_data=json.loads(response.text)
 				if len(json_data["sessions"]):
 					for session in json_data["sessions"]:
