@@ -41,7 +41,7 @@ def district(update,context):
 						update.message.reply_text(msg)
 						flag=1
 	if flag==0:
-		update.message.reply_text("[-]No Slots found check ater!")
+		update.message.reply_text("[-]No Slots found check later!")
 
 def pincode(update,context):
 	flag=0
@@ -68,7 +68,7 @@ def pincode(update,context):
 						update.message.reply_text(msg)
 						flag=1
 	if flag==0:
-		update.message.reply_text("[-]No Slots found\nCheck Later!")
+		update.message.reply_text("[-]No Slots found Check Later!")
 
 
 
