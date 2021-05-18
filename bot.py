@@ -86,7 +86,7 @@ def botpincode(update,context):
 			d3 = (date.today() + timedelta(days = day)).strftime("%d-%m-%Y")
 			#d4=data.get(da)
 			url=f"https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode={pin}&date={d3}"
-			print(url)
+			#print(url)
 			try:
 				response=requests.get(url,headers=headers)
 			except:
