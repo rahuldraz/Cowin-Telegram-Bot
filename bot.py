@@ -26,6 +26,9 @@ def district(update,context):
 	for day in range(0,5):
 		d3 = (date.today() + timedelta(days = day)).strftime("%d-%m-%Y")
 		d4=data.get(da)
+		if(d4=="None"):
+			update.message.reply_text("[-]Wrong District!\n")
+			return
 		url=f"https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id={d4}&date={d3}"
 		try:
 			response=requests.get(url,headers=headers)
@@ -115,6 +118,9 @@ def botdistrict(update,context):
 		for day in range(0,5):
 			d3 = (date.today() + timedelta(days = day)).strftime("%d-%m-%Y")
 			d4=data.get(da)
+			if(d4=="None"):
+				update.message.reply_text("[-]Wrong District!\n")
+				return
 			url=f"https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id={d4}&date={d3}"
 			try:
 				response=requests.get(url,headers=headers)
