@@ -18,7 +18,7 @@ headers={"Accept": "application/json","Accept-Language": "hi_IN","User-Agent": "
 
 def district(update,context):
 	flag=0
-	da=str(' '.join(context.args[:]))
+	da=str(' '.join(context.args[:])).lower()
 	#print(da)
 	for day in range(0,5):
 		d3 = (datetime.now(IST) + timedelta(days = day)).strftime("%d-%m-%Y")
@@ -106,7 +106,7 @@ def botpincode(update,context):
 			
 
 def botdistrict(update,context):
-	da=str(' '.join(context.args[:-1]))
+	da=str(' '.join(context.args[:-1])).lower()
 	
 	age=int(context.args[-1])
 	update.message.reply_text("[+]Bot Started\n")
