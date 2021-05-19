@@ -102,6 +102,7 @@ def botpincode(update,context):
 						if session["available_capacity"] > 0 and session["min_age_limit"] <= age:
 							msg = f"{session['vaccine']} available for {session['available_capacity']}  people on {session['date']} at {session['name']},{session['address']}\n"
 							update.message.reply_text(msg)
+							return
 		sleep(TIME_GAP)
 			
 
@@ -132,6 +133,7 @@ def botdistrict(update,context):
 						if session["available_capacity"] > 0 and session["min_age_limit"] <= age:
 							msg = f"{session['vaccine']} available for {session['available_capacity']}  people on {session['date']} at {session['name']},{session['address']}\n"
 							update.message.reply_text(msg)
+							return
 		sleep(TIME_GAP)
 
 
@@ -147,10 +149,10 @@ def help(update , context):
     Checks For Slots in this District \n
     /botpincode pin age\n
     Example /botpincode 800001 18\n
-    Starts a Bot that continously checks in this PinCode\n
+    Starts a Bot that checks continously \n
     /bot_city city age\n
     Example /botdistrict Patna 18\n
-    Starts a Bot that continously checks in this District\n
+    Starts a Bot that checks continously\n
     ----------------------\n
 
 '''
@@ -158,7 +160,7 @@ def help(update , context):
 
 
 def main():
-    updater = Updater(token = TOKEN,use_context=True)
+    updater = Updater(token = TOKEN,use_context=True,workers=10)
     dp = updater.dispatcher
 
     dp.add_handler(CommandHandler("district" , district,run_async=True))
