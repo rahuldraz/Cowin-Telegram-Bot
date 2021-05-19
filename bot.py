@@ -18,12 +18,8 @@ headers={"Accept": "application/json","Accept-Language": "hi_IN","User-Agent": "
 
 def district(update,context):
 	flag=0
-	if(len(context.args)==1):
-		da=str(context.args[0]).lower()
-	else:
-		update.message.reply_text("[-]Invalid!\nExample-/district 'Upper Subansiri'!\n")
-		return
-	
+	da=str(' '.join(context.args[:]))
+	#print(da)
 	for day in range(0,5):
 		d3 = (datetime.now(IST) + timedelta(days = day)).strftime("%d-%m-%Y")
 		d4=data.get(da)
@@ -110,12 +106,9 @@ def botpincode(update,context):
 			
 
 def botdistrict(update,context):
-	if(len(context.args)==2):
-		da=str(context.args[0]).lower()
-		age=int(context.args[1])
-	else:
-		update.message.reply_text("Invalid\nExample /botdistrict 'Patna' 18")
-		return
+	da=str(' '.join(context.args[:-1]))
+	
+	age=int(context.args[-1])
 	update.message.reply_text("[+]Bot Started\n")
 	while True:
 		for day in range(0,5):
@@ -150,13 +143,13 @@ def help(update , context):
     Example /pincode 800001\n
     Checks For Slots in this PinCode\n
     /district name\n
-    Example /district 'Patna'\n
+    Example /district Patna\n
     Checks For Slots in this District \n
     /botpincode pin age\n
     Example /botpincode 800001 18\n
     Starts a Bot that continously checks in this PinCode\n
     /bot_city city age\n
-    Example /botdistrict 'Patna' 18\n
+    Example /botdistrict Patna 18\n
     Starts a Bot that continously checks in this District\n
     ----------------------\n
 
