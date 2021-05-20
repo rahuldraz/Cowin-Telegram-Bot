@@ -15,6 +15,6 @@ Checks and alert for available slots for covid vaccines for seleted pincodes and
 - Checks for Age
 
 
-#### Example 1
- ![Example1](https://raw.githubusercontent.com/rahuldraz/Cowin-Telegram-Bot/main/Check1.png)   ![Example2](https://raw.githubusercontent.com/rahuldraz/Cowin-Telegram-Bot/main/Check2.png)
+#### Examples
+ ![Example1](https://raw.githubusercontent.com/rahuldraz/Cowin-Telegram-Bot/main/Check1.png)      ![Example2](https://raw.githubusercontent.com/rahuldraz/Cowin-Telegram-Bot/main/Check2.png)
 
