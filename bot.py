@@ -76,8 +76,10 @@ def pincode(update,context):
 
 def botpincode(update,context):
 
-	if(len(context.args)==2):
+	if(len(context.args)==3):
 		pin=str(context.args[0])
+		dosec=str(context.args[2])
+		dose='available_capacity_dose'+dosec
 		age=int(context.args[1])
 	else:
 		update.message.reply_text("[-]Invalid Example- /botpincode 800001 18")
@@ -99,17 +101,18 @@ def botpincode(update,context):
 				json_data=json.loads(response.text)
 				if len(json_data["sessions"]):
 					for session in json_data["sessions"]:
-						if session["available_capacity"] > 0 and session["min_age_limit"] <= age:
-							msg = f"{session['vaccine']} available for {session['available_capacity']}  people on {session['date']} at {session['name']},{session['address']}\n"
+						if session[dose] > 0 and session["min_age_limit"] <= age:
+							msg = f"{session['vaccine']} available for {session[dose]} people  for Dose {dosec}  on {session['date']} at {session['name']},{session['address']}\n"
 							update.message.reply_text(msg)
 							return
 		sleep(TIME_GAP)
 			
 
 def botdistrict(update,context):
-	da=str(' '.join(context.args[:-1])).lower()
-	
-	age=int(context.args[-1])
+	da=str(' '.join(context.args[:-2])).lower()
+	dosec=str(context.args[-1])
+	dose='available_capacity_dose'+dosec
+	age=int(context.args[-2])
 	update.message.reply_text("[+]Bot Started\n")
 	while True:
 		for day in range(0,5):
@@ -130,8 +133,8 @@ def botdistrict(update,context):
 				json_data=json.loads(response.text)
 				if len(json_data["sessions"]):
 					for session in json_data["sessions"]:
-						if session["available_capacity"] > 0 and session["min_age_limit"] <= age:
-							msg = f"{session['vaccine']} available for {session['available_capacity']}  people on {session['date']} at {session['name']},{session['address']}\n"
+						if session[dose] > 0 and session["min_age_limit"] <= age:
+							msg = f"{session['vaccine']} available for {session[dose]} people  for Dose {dosec}  on {session['date']} at {session['name']},{session['address']}\n"
 							update.message.reply_text(msg)
 							return
 		sleep(TIME_GAP)
@@ -139,6 +142,7 @@ def botdistrict(update,context):
 
 def help(update , context):
     msg = '''Telegram Bot Created by @rahuldraz\n
+    Souggestions and source github.com/rahuldraz\n
     Instructions\n
     ---------------------\n
     /pincode pin\n
@@ -147,11 +151,11 @@ def help(update , context):
     /district name\n
     Example /district Patna\n
     Checks For Slots in this District \n
-    /botpincode pin age\n
-    Example /botpincode 800001 18\n
+    /botpincode pin age dose\n
+    Example /botpincode 800001 18 1\n
     Starts a Bot that checks continously \n
-    /bot_city city age\n
-    Example /botdistrict Patna 18\n
+    /bot_city city age dose\n
+    Example /botdistrict Patna 18 2\n
     Starts a Bot that checks continously\n
     ----------------------\n
 
