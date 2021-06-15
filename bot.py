@@ -142,7 +142,6 @@ def botdistrict(update,context):
 
 def help(update , context):
     msg = '''Telegram Bot Created by @rahuldraz\n
-    Souggestions and source github.com/rahuldraz\n
     Instructions\n
     ---------------------\n
     /pincode pin\n
